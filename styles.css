@@ -1,10 +1,57 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: rgb(247, 241, 241);
+    background-color: rgb(0, 0, 0);
     color: rgb(5, 5, 5);
     text-align: center;
     margin: 0;
     padding: 0;
+}
+
+
+
+.start-button {
+    background: #ff4500;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.start-button:hover {
+    background: #ff6347;
+}
+
+/* Game Over or Ending screen styles */
+#ending-screen {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+
+.ending-button {
+    background: #008CBA;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.ending-button:hover {
+    background: #005f75;
 }
 
 /* Fullscreen background image */
@@ -66,4 +113,77 @@ button:hover {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
+}
+
+/* styles.css */
+
+.game-over {
+    color: red;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.game-over-text {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.button-container button {
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+}
+
+.button-container button:hover {
+    background-color: #555;
+}
+
+/* Style the input box */
+#codeInput {
+    padding: 10px;
+    font-size: 16px;
+    width: 200px;
+    border: 2px solid #444;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.3s;
+}
+
+#codeInput:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+
+/* Style the scrambled word */
+#scrambledWord {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style the alert message */
+#alertMessage {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+#explosion-video {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
 }

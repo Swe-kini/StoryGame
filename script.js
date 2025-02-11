@@ -3,6 +3,7 @@ const story = {
     start: {
         text: "You wake up on a mysterious island. The sky flickers unnaturally.",
         image: "/home/swethabenny/Downloads/island.jpeg",
+        sound: "/home/swethabenny/Downloads/waves.mp3",
         choices: [
             { text: "Explore the Beach", nextScene: "beach" },
             { text: "Enter the Jungle", nextScene: "jungle" },
@@ -13,10 +14,59 @@ const story = {
         text: "You find a blinking device in the sand.",
         image: "/home/swethabenny/Downloads/device.jpeg",
         choices: [
-            { text: "Press the Button", nextScene: "glitch" },
-            { text: "Ignore & Find a Drone", nextScene: "drone" }
+            { text: "Press the Button", nextScene: "beach_button_pressed" },
+            { text: "Ignore it", nextScene: "move" }
         ]
     },
+    move: {
+        text: "You move forward and see the  drone moving away.",
+        choices: [
+            { text: "Chase the drone", nextScene: "drone" },
+            { text: "Destroy it", nextScene: "explosion" },
+        ]
+    },
+    explosion: {
+        text: "Oops, wrong decision",
+    
+    },
+
+    beach_button_pressed: {
+        text: "The device lights up, revealing three colored buttons.",
+        image: "/home/swethabenny/Downloads/button.jpeg",
+        choices: [
+            { text: "Press the Red Button", nextScene: "red_button" },
+            { text: "Press the Blue Button", nextScene: "blue_button" },
+            { text: "Press the Green Button", nextScene: "green_button" }
+        ]
+    },
+
+    red_button: {
+        text: "SYSTEM OVERLOAD IMMINENT!",
+        image: "/home/swethabenny/Downloads/red_warning.jpeg",
+        choices: [
+            { text: "Try to Shut it Down", nextScene: "glitch_event" },
+            { text: "Let it Happen", nextScene: "control_ending" }
+        ]
+    },
+    
+    blue_button: {
+        text: "The device projects a holographic map of the island.",
+        image: "/home/swethabenny/Downloads/hologram.jpeg",
+        choices: [
+            { text: "Analyze the Map", nextScene: "tower" },
+            { text: "Ignore the Map", nextScene: "jungle" }
+        ]
+    },
+
+    green_button: {
+        text: "The device starts scanning your body.",
+        image: "/home/swethabenny/Downloads/scan.jpeg",
+        choices: [
+            { text: "Submit to the Scan", nextScene: "vision" },
+            { text: "Destroy the Device", nextScene: "mystery_ending" }
+        ]
+    },
+
     jungle: {
         text: "You hear strange noises in the jungle.",
         image: "/home/swethabenny/Downloads/forest.jpeg",
@@ -27,7 +77,7 @@ const story = {
         ]
     },
     cliff: {
-        text: "You notice the sun resetting every few minutes.",
+        text: "You notice the sun resetting every few minutes.Also you notices a tower at the edge of the cliff",
         image: "/home/swethabenny/Downloads/sun.jpeg",
         choices: [
             { text: "Head to the Tower", nextScene: "tower" },
@@ -36,6 +86,7 @@ const story = {
     },
     glitch: {
         text: "Reality distorts. A voice echoes: 'You are not supposed to be here.'",
+        image: "/home/swethabenny/Downloads/beachglitch.jpeg",
         sound: "/home/swethabenny/Downloads/glitch.mp3",
         choices: [
             { text: "Hack the System", nextScene: "control_ending" },
@@ -44,15 +95,15 @@ const story = {
         ]
     },
     drone: {
-        text: "The drone stores data and later activates, revealing logs.",
+        text: "You move forward and see the  drone moving away.The drone stores data and later activates, revealing logs.",
         choices: [
             { text: "Continue Exploring", nextScene: "glitch_event" }
         ]
     },
     bunker: {
         text: "You discover a hidden bunker entrance. A locked panel with a flickering screen stands in your way.",
-        image: "/path-to-bunker-image.jpg",
-        sound: "/path-to-bunker-sound.mp3",
+        image: "/home/swethabenny/Downloads/bunker.jpeg",
+        
         choices: [
             { text: "Attempt to Hack the Panel", nextScene: "bunker_task" },
             { text: "Turn Back", nextScene: "jungle" }
@@ -61,10 +112,10 @@ const story = {
     
     bunker_task: {
         text: "You must enter the correct sequence to bypass the security system. A timer starts counting down...",
-        image: "/path-to-hacking-image.jpg",
+        image: "/home/swethabenny/Downloads/bunker.jpeg",
         sound: "/timer-beeping.mp3",
         task: {
-            type: "puzzle", // This can be a mini-game
+            type: "puzzle", 
             difficulty: "medium",
             successNextScene: "major_glitch_event",
             failNextScene: "bunker_explosion"
@@ -73,12 +124,9 @@ const story = {
     
     bunker_explosion: {
         text: "You fail to hack the system in time. A siren blares, and suddenly, a loud explosion engulfs the bunker...",
-        image: "/path-to-explosion-image.jpg",
-        sound: "/explosion.mp3",
-        choices: [
-            { text: "Restart from Checkpoint", nextScene: "bunker" },
-            { text: "Game Over", nextScene: "game_over" }
-        ]
+        
+        sound: "/home/swethabenny/Downloads/explosion.mp3",
+        
     },
     
     animal: {
@@ -88,6 +136,13 @@ const story = {
         ]
     },
     tower: {
+        text: "You move towards the tower and sees a drone",
+        choices: [
+            { text: "Go inside", nextScene: "inside" },
+            { text: "chase the drone", nextScene: "drone" }
+        ]
+    },
+    inside: {
         text: "You find a malfunctioning control panel.",
         choices: [
             { text: "Manually Fix the System", nextScene: "control_ending" },
@@ -110,16 +165,19 @@ const story = {
             { text: "Reset the Simulation", nextScene: "start" }
         ]
     },
-    control_ending: { text: "You override the system and reshape reality. (Ending)" ,image: "/home/swethabenny/Downloads/sun.jpeg",},
-    escape_ending: { text: "You enter a portal, waking up in a different world. (Ending)" },
-    flashback_ending: { text: "You wake up in a lab, realizing you were a test subject. (Ending)" },
-    mystery_ending: { text: "An unknown consequence unfolds... (Ending)" }
+    control_ending: { text: "You override the system and reshape reality. " ,image: "/home/swethabenny/Downloads/sun.jpeg",},
+    escape_ending: { text: "You enter a portal, waking up in a different world. " },
+    flashback_ending: { text: "You wake up in a lab, realizing you were a test subject. " },
+    mystery_ending: { text: "An unknown consequence unfolds... " }
 };
 
-function startGame() {
-    showStory("start");
-}
-let currentAudio = null; 
+
+const words = ["HACK", "SYSTEM", "CODE", "BREAK", "ESCAPE", "PORTAL"];
+let currentWord = "";
+let attemptsLeft = 2;
+let scrambledWord = "";
+let currentAudio = null;
+
 
 function playLoopingSound(url) {
     // Stop any previously playing audio
@@ -146,27 +204,170 @@ function showPuzzle() {
     const puzzleContainer = document.createElement('div');
     puzzleContainer.innerHTML = `
         <h2>Code Breaker Puzzle</h2>
-        <p>Enter the code to continue:</p>
+        <p id="scrambledWord"></p> 
+         <p>Enter the code to continue:</p>
         <input type="text" id="codeInput" placeholder="Enter code here" />
         <button onclick="checkPuzzle()">Submit</button>
-        <p id="puzzleMessage"></p>
+        <p id="alertMessage"></p>  
     `;
     document.getElementById('story-text').appendChild(puzzleContainer);
+    
+    initializePuzzle(); // Start the puzzle logic
+}
+
+function scrambleWord(word) {
+    const wordArray = word.split("");
+    for (let i = wordArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [wordArray[i], wordArray[j]] = [wordArray[j], wordArray[i]];
+    }
+    return wordArray.join("");
+}
+
+function initializePuzzle() {
+    const words = ["HACK", "SYSTEM", "CODE", "BREAK", "ESCAPE", "PORTAL"];
+    const randomIndex = Math.floor(Math.random() * words.length);
+    currentWord = words[randomIndex];
+    scrambledWord = scrambleWord(currentWord);
+    
+    document.getElementById("scrambledWord").innerText = `Scrambled word: ${scrambledWord}`;
+    document.getElementById("alertMessage").innerText = "";  // Reset message
+    document.getElementById("alertMessage").style.color = ""; // Reset color
+    attemptsLeft = 2;
 }
 
 function checkPuzzle() {
-    const userInput = document.getElementById('codeInput').value.trim();
-    const correctCode = "HACKTHECODE"; // The correct code for the puzzle
-    
-    if (userInput.toUpperCase() === correctCode) {
-        document.getElementById('puzzleMessage').innerText = "Correct code! Access granted.";
-        showStory("major_glitch_event"); // Move to the next scene on success
+    const userInput = document.getElementById('codeInput').value.trim().toUpperCase();
+    const alertMessage = document.getElementById('alertMessage');
+
+    if (userInput === currentWord) {
+        alertMessage.innerText = "Correct code! Access granted.";
+        alertMessage.style.color = "green"; // Success message in green
+        showStory("major_glitch_event");
     } else {
-        document.getElementById('puzzleMessage').innerText = "Incorrect code! Try again.";
+        attemptsLeft--;
+        alertMessage.style.color = "red"; // Make alert text red
+        if (attemptsLeft > 0) {
+            alertMessage.innerText = `Incorrect code! You have ${attemptsLeft} attempt(s) left.`;
+        } else {
+            showExplosionScene();
+        }
     }
 }
 
-// Update `showStory` function to handle puzzle task
+function showExplosionScene() {
+    // Clear existing content
+    const storyContainer = document.getElementById("story-text");
+    storyContainer.innerHTML = "";
+
+    // Create a video element
+    const explosionVideo = document.createElement("video");
+    explosionVideo.src = "/home/swethabenny/Downloads/explosion.mp4"; // Set explosion video path
+    explosionVideo.autoplay = true;
+    explosionVideo.muted = false;
+    explosionVideo.controls = false;
+    explosionVideo.id = "explosion-video"; 
+
+    const explosionSound = new Audio("/home/swethabenny/Downloads/explosion.mp3");
+    explosionVideo.onplay = () => {
+        explosionSound.play().catch(error => console.log("Audio play failed:", error)); // Handle autoplay restrictions
+    };
+
+    // Append video to the body
+    document.body.appendChild(explosionVideo);
+    setTimeout(() => {
+        showGameOver(); // Pop up effect triggered before video ends
+    }, explosionVideo.duration * 500); // Show "GAME OVER" 80% into the explosion
+
+    // When video ends, remove it
+    explosionVideo.onended = function () {
+        document.body.removeChild(explosionVideo);
+    };
+}
+
+function showGameOver() {
+    const storyContainer = document.getElementById("story-text");
+    storyContainer.innerHTML = `
+        <h1 class="game-over">GAME OVER</h1>
+        <p class="game-over-text">You are dead...</p>
+        <div class="button-container">
+            <button onclick="restart()">Retry</button>
+            <button onclick="exitGame()">Exit</button>
+        </div>
+    `;
+}
+
+
+function restart() {
+    showStory("bunker"); // Restart from the bunker checkpoint
+}
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    showHomeScreen(); // Show the home screen when the page loads
+});
+
+function showHomeScreen() {
+    document.body.style.backgroundImage = "url('/home/swethabenny/Downloads/home.jpeg')";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundAttachment = "fixed";
+
+    const gameContainer = document.getElementById("game-container");
+    gameContainer.innerHTML = `
+        <div id="home-screen" class="fade-in">
+            <h1>Reality Glitch: The Island of Illusions</h1>
+            <p>
+                The last thing you remember is falling asleep... Now, you wake up on an island where reality seems to flicker.  
+                The sky shifts unnaturally. Shapes blur at the edges of your vision.  
+                You are not alone. Something is watching. Something is... wrong.  
+                <br><br>
+                Every choice you make will reveal a hidden truth—or trap you in the simulation forever.  
+            </p>
+            <button class="start-button" onclick="startGame()">Enter the Illusion</button>
+        </div>
+    `;
+}
+
+
+function startGame() {
+    const gameContainer = document.getElementById("game-container");
+    gameContainer.innerHTML = `
+        <div id="story-container">
+           
+            <p id="story-text"></p>
+            <div id="choices"></div>
+        </div>
+    `;
+    showStory("start"); // Start the game from the first scene
+}
+
+function showEndingScreen(message, image) {
+    const gameContainer = document.getElementById("game-container");
+    
+    gameContainer.innerHTML = `
+        <div id="ending-screen">
+            <h1>${message}</h1>
+            
+            <button class="ending-button" onclick="restartGame()">Restart Game</button>
+            <button class="ending-button" onclick="exitGame()">Exit</button>
+        </div>
+    `;
+    
+}
+
+function restartGame() {
+    showHomeScreen(); // Restart the game from the home screen
+}
+
+function exitGame() {
+    window.close(); // Close the browser window (may not work on all browsers)
+}
+
+// Modify showStory function to handle endings
 function showStory(storyKey) {
     const storyNode = story[storyKey];
     const storyTextDiv = document.getElementById("story-text");
@@ -186,13 +387,24 @@ function showStory(storyKey) {
         playLoopingSound(storyNode.sound);
     }
 
+    // Check if the scene is an ending
+    if (storyKey.endsWith("_ending")) {
+        showEndingScreen(storyNode.text, storyNode.image);
+        return;
+    }
+    if (storyKey === "explosion") {
+        showExplosionScene();
+        return;
+    }
+    
+
     // Show story text
     let i = 0;
     function typeWriter() {
         if (i < storyNode.text.length) {
             storyTextDiv.innerHTML += storyNode.text.charAt(i);
             i++;
-            setTimeout(typeWriter, 30);
+            setTimeout(typeWriter, 70);
         } else {
             if (storyNode.task && storyNode.task.type === "puzzle") {
                 showPuzzle(); // Show the puzzle if it's a puzzle task
@@ -207,12 +419,10 @@ function showStory(storyKey) {
 function showChoices(choices) {
     const choicesDiv = document.getElementById("choices");
     choices.forEach(choice => {
-        let button = document.createElement("button");
+        const button = document.createElement("button");
         button.innerText = choice.text;
+        button.classList.add("choice-button");
         button.onclick = () => showStory(choice.nextScene);
-        button.style.width = "200px";
         choicesDiv.appendChild(button);
     });
 }
-
-window.onload = startGame;
