@@ -2,8 +2,8 @@
 const story = {
     start: {
         text: "You wake up on a mysterious island. The sky flickers unnaturally.",
-        image: "/home/swethabenny/Downloads/island.jpeg",
-        sound: "/home/swethabenny/Downloads/waves.mp3",
+        image: "images/island.jpeg",
+        sound: "images/waves.mp3",
         choices: [
             { text: "Explore the Beach", nextScene: "beach" },
             { text: "Enter the Jungle", nextScene: "jungle" },
@@ -12,7 +12,7 @@ const story = {
     },
     beach: {
         text: "You find a blinking device in the sand.",
-        image: "/home/swethabenny/Downloads/device.jpeg",
+        image: "images/device.jpeg",
         choices: [
             { text: "Press the Button", nextScene: "beach_button_pressed" },
             { text: "Ignore it", nextScene: "move" }
@@ -32,7 +32,7 @@ const story = {
 
     beach_button_pressed: {
         text: "The device lights up, revealing three colored buttons.",
-        image: "/home/swethabenny/Downloads/button.jpeg",
+        image: "images/button.jpeg",
         choices: [
             { text: "Press the Red Button", nextScene: "red_button" },
             { text: "Press the Blue Button", nextScene: "blue_button" },
@@ -42,7 +42,7 @@ const story = {
 
     red_button: {
         text: "SYSTEM OVERLOAD IMMINENT!",
-        image: "/home/swethabenny/Downloads/red_warning.jpeg",
+        image: "images/red.webp",
         choices: [
             { text: "Try to Shut it Down", nextScene: "glitch_event" },
             { text: "Let it Happen", nextScene: "control_ending" }
@@ -51,7 +51,7 @@ const story = {
     
     blue_button: {
         text: "The device projects a holographic map of the island.",
-        image: "/home/swethabenny/Downloads/hologram.jpeg",
+        image: "images/hologram.jpeg",
         choices: [
             { text: "Analyze the Map", nextScene: "tower" },
             { text: "Ignore the Map", nextScene: "jungle" }
@@ -60,7 +60,7 @@ const story = {
 
     green_button: {
         text: "The device starts scanning your body.",
-        image: "/home/swethabenny/Downloads/scan.jpeg",
+        image: "images/scan.jpeg",
         choices: [
             { text: "Submit to the Scan", nextScene: "vision" },
             { text: "Destroy the Device", nextScene: "mystery_ending" }
@@ -69,8 +69,8 @@ const story = {
 
     jungle: {
         text: "You hear strange noises in the jungle.",
-        image: "/home/swethabenny/Downloads/forest.jpeg",
-        sound: "/home/swethabenny/Downloads/jungle.mp3",
+        image: "images/forest.jpeg",
+        sound: "images/jungle.mp3",
         choices: [
             { text: "Follow the Noises", nextScene: "bunker" },
             { text: "Hunt the Glitching Animal", nextScene: "animal" }
@@ -78,7 +78,7 @@ const story = {
     },
     cliff: {
         text: "You notice the sun resetting every few minutes.Also you notices a tower at the edge of the cliff",
-        image: "/home/swethabenny/Downloads/sun.jpeg",
+        image: "images/sun.jpeg",
         choices: [
             { text: "Head to the Tower", nextScene: "tower" },
             { text: "Observe Drone Scan", nextScene: "vision" }
@@ -86,8 +86,8 @@ const story = {
     },
     glitch: {
         text: "Reality distorts. A voice echoes: 'You are not supposed to be here.'",
-        image: "/home/swethabenny/Downloads/beachglitch.jpeg",
-        sound: "/home/swethabenny/Downloads/glitch.mp3",
+        image: "images/beachglitch.jpeg",
+        sound: "images/glitch.mp3",
         choices: [
             { text: "Hack the System", nextScene: "control_ending" },
             { text: "Escape Through the Portal", nextScene: "escape_ending" },
@@ -102,7 +102,7 @@ const story = {
     },
     bunker: {
         text: "You discover a hidden bunker entrance. A locked panel with a flickering screen stands in your way.",
-        image: "/home/swethabenny/Downloads/bunker.jpeg",
+        image: "images/bunker.jpeg",
         
         choices: [
             { text: "Attempt to Hack the Panel", nextScene: "bunker_task" },
@@ -112,7 +112,7 @@ const story = {
     
     bunker_task: {
         text: "You must enter the correct sequence to bypass the security system. A timer starts counting down...",
-        image: "/home/swethabenny/Downloads/bunker.jpeg",
+        image: "images/bunker.jpeg",
         sound: "/timer-beeping.mp3",
         task: {
             type: "puzzle", 
@@ -125,7 +125,7 @@ const story = {
     bunker_explosion: {
         text: "You fail to hack the system in time. A siren blares, and suddenly, a loud explosion engulfs the bunker...",
         
-        sound: "/home/swethabenny/Downloads/explosion.mp3",
+        sound: "images/explosion.mp3",
         
     },
     
@@ -157,15 +157,15 @@ const story = {
     },
     glitch_event: {
         text: "Reality begins to collapse. What do you do?",
-        image: "/home/swethabenny/Downloads/collapse.jpg",
-        sound: "/home/swethabenny/Downloads/glitch.mp3",
+        image: "images/collapse.jpg",
+        sound: "images/glitch.mp3",
         choices: [
             { text: "Hack the System", nextScene: "control_ending" },
             { text: "Escape Through a Portal", nextScene: "escape_ending" },
             { text: "Reset the Simulation", nextScene: "start" }
         ]
     },
-    control_ending: { text: "You override the system and reshape reality. " ,image: "/home/swethabenny/Downloads/sun.jpeg",},
+    control_ending: { text: "You override the system and reshape reality. " ,image: "images/sun.jpeg",},
     escape_ending: { text: "You enter a portal, waking up in a different world. " },
     flashback_ending: { text: "You wake up in a lab, realizing you were a test subject. " },
     mystery_ending: { text: "An unknown consequence unfolds... " }
@@ -262,13 +262,13 @@ function showExplosionScene() {
 
     // Create a video element
     const explosionVideo = document.createElement("video");
-    explosionVideo.src = "/home/swethabenny/Downloads/explosion.mp4"; // Set explosion video path
+    explosionVideo.src = "images/explosion.mp4"; // Set explosion video path
     explosionVideo.autoplay = true;
     explosionVideo.muted = false;
     explosionVideo.controls = false;
     explosionVideo.id = "explosion-video"; 
 
-    const explosionSound = new Audio("/home/swethabenny/Downloads/explosion.mp3");
+    const explosionSound = new Audio("images/explosion.mp3");
     explosionVideo.onplay = () => {
         explosionSound.play().catch(error => console.log("Audio play failed:", error)); // Handle autoplay restrictions
     };
@@ -310,13 +310,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function showHomeScreen() {
-    document.body.style.backgroundImage = "url('/home/swethabenny/Downloads/home.jpeg')";
+    document.body.style.backgroundImage = "url('images/home.jpeg')";
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundAttachment = "fixed";
 
-    const gameContainer = document.getElementById("game-container");
+    document.getElementById("game-container").style.display = "none";
+
+    const gameContainer = document.getElementById("home-container");
     gameContainer.innerHTML = `
         <div id="home-screen" class="fade-in">
             <h1>Reality Glitch: The Island of Illusions</h1>
@@ -334,7 +336,9 @@ function showHomeScreen() {
 
 
 function startGame() {
+    document.getElementById("home-container").style.display = "none";
     const gameContainer = document.getElementById("game-container");
+    gameContainer.style.display = "block";
     gameContainer.innerHTML = `
         <div id="story-container">
            
@@ -342,7 +346,7 @@ function startGame() {
             <div id="choices"></div>
         </div>
     `;
-    showStory("start"); // Start the game from the first scene
+    showStory("start"); 
 }
 
 function showEndingScreen(message, image) {
@@ -418,11 +422,25 @@ function showStory(storyKey) {
 
 function showChoices(choices) {
     const choicesDiv = document.getElementById("choices");
-    choices.forEach(choice => {
-        const button = document.createElement("button");
-        button.innerText = choice.text;
-        button.classList.add("choice-button");
-        button.onclick = () => showStory(choice.nextScene);
-        choicesDiv.appendChild(button);
-    });
+    choicesDiv.innerHTML = ""; // Clear previous choices
+
+    setTimeout(() => { 
+        choices.forEach((choice, index) => {
+            setTimeout(() => { // Stagger choice appearance
+                const button = document.createElement("button");
+                button.innerText = choice.text;
+                button.classList.add("choice-button");
+                button.onclick = () => showStory(choice.nextScene);
+                button.style.opacity = "0"; // Start hidden
+                choicesDiv.appendChild(button);
+
+                // Smooth fade-in effect
+                setTimeout(() => {
+                    button.style.opacity = "1";
+                    button.style.transition = "opacity 0.5s ease-in-out";
+                }, 100);
+            }, index * 300); // Staggered delay between choices
+        });
+    }, 900); // Delay before choices appear (adjust based on text speed)
 }
+
