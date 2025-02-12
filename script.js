@@ -185,7 +185,7 @@ const story = {
     },
     control_ending: { text: "You override the system and reshape reality. " ,image: "images/reality.webp"},
     escape_ending: { text: "You enter a portal, waking up in a different world. " ,image: "images/escape.web"},
-    flashback_ending: { text: "You wake up in a lab, realizing you were a test subject. " },
+    flashback_ending: { text: "You wake up in a lab, realizing you were a test subject. ",image: "images/lab.web" },
     mystery_ending: { text: "An unknown consequence unfolds... " ,image: "images/mystery.web"}
 };
 
@@ -503,27 +503,29 @@ function startGame() {
     `;
     showStory("start"); 
 }
-
-function showEndingScreen(message, image) {
+function showEndingScreen(message) {
     const gameContainer = document.getElementById("game-container");
     if (gameContainer) gameContainer.style.display = "none"; 
 
+    // Remove existing ending screen if it exists
     const existingEndingScreen = document.getElementById("ending-screen");
     if (existingEndingScreen) existingEndingScreen.remove();
 
+    // Create a new ending screen
     const endingScreen = document.createElement("div");
-    endingScreen.id = "ending-screen";
+    endingScreen.id = "ending-screen"; // Ensure it has the correct ID for styling
+
     endingScreen.innerHTML = `
         <h1>${message}</h1>
-      
-        <div class="ending-buttons">
-            <button onclick="restartGame()">Restart Game</button>
-            <button onclick="exitGame()">Exit</button>
+        <div>
+            <button class="ending-buttons" onclick="restartGame()">Restart Game</button>
+            <button class="ending-buttons" onclick="exitGame()">Exit</button>
         </div>
     `;
 
     document.body.appendChild(endingScreen);
 }
+
 
 
 
@@ -557,7 +559,7 @@ function showStory(storyKey) {
 
     // Check if the scene is an ending
     if (storyKey.endsWith("_ending")) {
-        showEndingScreen(storyNode.text, storyNode.image);
+        showEndingScreen(storyNode.text);
         return;
     }
     if (storyKey === "explosion" || storyKey === "green_button") {
