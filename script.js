@@ -1,7 +1,7 @@
 
 const story = {
     start: {
-        text: "You wake up on a mysterious island. The sky flickers unnaturally.",
+        text: "You wake up on a mysterious island.The sky flickers unnaturally.",
         image: "images/island.jpeg",
         sound: "images/waves.mp3",
         choices: [
@@ -12,6 +12,7 @@ const story = {
     },
     beach: {
         text: "You find a blinking device in the sand.",
+        sound: "images/waves.mp3",
         image: "images/device.jpeg",
         choices: [
             { text: "Press the Button", nextScene: "beach_button_pressed" },
@@ -19,16 +20,14 @@ const story = {
         ]
     },
     move: {
-        text: "You move forward and see the  drone moving away.",
+        text: "You move forward and see a drone flying away.",
+        image: "images/drone1.webp",
         choices: [
             { text: "Chase the drone", nextScene: "drone" },
             { text: "Destroy it", nextScene: "explosion" },
         ]
     },
-    explosion: {
-        text: "Oops, wrong decision",
-    
-    },
+    explosion: {},
 
     beach_button_pressed: {
         text: "The device lights up, revealing three colored buttons.",
@@ -44,27 +43,24 @@ const story = {
         text: "SYSTEM OVERLOAD IMMINENT!",
         image: "images/red.webp",
         choices: [
-            { text: "Try to Shut it Down", nextScene: "glitch_event" },
+            { text: "Try to Shut it Down", nextScene: "glitch" },
             { text: "Let it Happen", nextScene: "control_ending" }
         ]
     },
     
     blue_button: {
         text: "The device projects a holographic map of the island.",
-        image: "images/hologram.jpeg",
+        image: "images/blue.webp",
         choices: [
-            { text: "Analyze the Map", nextScene: "tower" },
-            { text: "Ignore the Map", nextScene: "jungle" }
+            { text: "climb cliff", nextScene: "cliff" },
+            { text: "enter jungle", nextScene: "jungle" }
         ]
     },
 
     green_button: {
-        text: "The device starts scanning your body.",
-        image: "images/scan.jpeg",
-        choices: [
-            { text: "Submit to the Scan", nextScene: "vision" },
-            { text: "Destroy the Device", nextScene: "mystery_ending" }
-        ]
+        text: "Device explosion activated",
+        image: "images/button.jpeg",
+        
     },
 
     jungle: {
@@ -81,7 +77,7 @@ const story = {
         image: "images/sun.jpeg",
         choices: [
             { text: "Head to the Tower", nextScene: "tower" },
-            { text: "Observe Drone Scan", nextScene: "vision" }
+            { text: "Think", nextScene: "vision" }
         ]
     },
     glitch: {
@@ -95,11 +91,20 @@ const story = {
         ]
     },
     drone: {
-        text: "You move forward and see the  drone moving away.The drone stores data and later activates, revealing logs.",
+        text: "You move forward and see the drone moving away.You chase it and on the run you saw a boat on the shore",
+        image: "images/sawboat.webp",
         choices: [
-            { text: "Continue Exploring", nextScene: "glitch_event" }
+            { text: "Continue chasing", nextScene: "bunker" },
+            { text: "take the boat", nextScene: "boat" }
+        
         ]
     },
+    boat: {
+        text: "You are athe middle of the ocean and your boat starts to drown",
+        image:"images/drown.webp",
+       
+    },
+    
     bunker: {
         text: "You discover a hidden bunker entrance. A locked panel with a flickering screen stands in your way.",
         image: "images/bunker.jpeg",
@@ -117,7 +122,7 @@ const story = {
         task: {
             type: "puzzle", 
             difficulty: "medium",
-            successNextScene: "major_glitch_event",
+            successNextScene: "glitch_event",
             failNextScene: "bunker_explosion"
         }
     },
@@ -131,19 +136,32 @@ const story = {
     
     animal: {
         text: "The creature is a glitch. You obtain a data chip.",
+        image: "images/dead.webp",
         choices: [
-            { text: "Decode Hidden Logs", nextScene: "glitch_event" }
+            { text: "Decode Hidden Logs", nextScene: "glitch_event" },
+            { text: "Run away", nextScene: "ignore" }
+
         ]
     },
     tower: {
-        text: "You move towards the tower and sees a drone",
+        text: "You move towards the tower ",
+        image: "images/tower.webp",
         choices: [
             { text: "Go inside", nextScene: "inside" },
-            { text: "chase the drone", nextScene: "drone" }
+            { text: "leave", nextScene: "ignore" }
+        ]
+    },
+    ignore: {
+        text: "You move forward and sees a drown",
+        image: "images/ignore.jpeg",
+        choices: [
+            { text: "Chase the drone", nextScene: "drone" },
+            { text: "Destroy it", nextScene: "explosion" },
         ]
     },
     inside: {
         text: "You find a malfunctioning control panel.",
+        image: "images/insidebunker.jpeg",
         choices: [
             { text: "Manually Fix the System", nextScene: "control_ending" },
             { text: "Force Shutdown", nextScene: "mystery_ending" }
@@ -152,7 +170,9 @@ const story = {
     vision: {
         text: "You recall a memory of escaping a lab.",
         choices: [
-            { text: "Continue", nextScene: "flashback_ending" }
+            { text: "Search for lab", nextScene: "bunker" },
+            { text: "Ignore", nextScene: "ignore" },
+
         ]
     },
     glitch_event: {
@@ -165,10 +185,10 @@ const story = {
             { text: "Reset the Simulation", nextScene: "start" }
         ]
     },
-    control_ending: { text: "You override the system and reshape reality. " ,image: "images/sun.jpeg",},
-    escape_ending: { text: "You enter a portal, waking up in a different world. " },
-    flashback_ending: { text: "You wake up in a lab, realizing you were a test subject. " },
-    mystery_ending: { text: "An unknown consequence unfolds... " }
+    control_ending: { text: "You override the system and reshape reality. " ,image: "images/reality.jpeg"},
+    escape_ending: { text: "You enter a portal, waking up in a different world. " ,image: "images/escape.jpeg"},
+    flashback_ending: { text: "You wake up in a lab, realizing you were a test subject. ",image: "images/lab.jpeg" },
+    mystery_ending: { text: "An unknown consequence unfolds... " ,image: "images/mystery.jpeg"}
 };
 
 
@@ -178,15 +198,11 @@ let attemptsLeft = 2;
 let scrambledWord = "";
 let currentAudio = null;
 
-
 function playLoopingSound(url) {
-    // Stop any previously playing audio
     if (currentAudio) {
         currentAudio.pause();
         currentAudio.currentTime = 0;
     }
-
-    // Play the new sound
     currentAudio = new Audio(url);
     currentAudio.loop = true;
     currentAudio.play();
@@ -196,21 +212,23 @@ function stopAudio() {
     if (currentAudio) {
         currentAudio.pause();
         currentAudio.currentTime = 0;
-        currentAudio = null;  
+        currentAudio = null;
     }
 }
 
 function showPuzzle() {
-    const puzzleContainer = document.createElement('div');
+    document.getElementById("game-container").style.display = "none"; // Hide main game container
+    const puzzleContainer = document.getElementById("puzzle-container");
+    puzzleContainer.style.display = "block"; // Show puzzle container
+    
     puzzleContainer.innerHTML = `
         <h2>Code Breaker Puzzle</h2>
         <p id="scrambledWord"></p> 
-         <p>Enter the code to continue:</p>
+        <p>Enter the code to continue:</p>
         <input type="text" id="codeInput" placeholder="Enter code here" />
         <button onclick="checkPuzzle()">Submit</button>
         <p id="alertMessage"></p>  
     `;
-    document.getElementById('story-text').appendChild(puzzleContainer);
     
     initializePuzzle(); // Start the puzzle logic
 }
@@ -225,14 +243,13 @@ function scrambleWord(word) {
 }
 
 function initializePuzzle() {
-    const words = ["HACK", "SYSTEM", "CODE", "BREAK", "ESCAPE", "PORTAL"];
     const randomIndex = Math.floor(Math.random() * words.length);
     currentWord = words[randomIndex];
     scrambledWord = scrambleWord(currentWord);
     
     document.getElementById("scrambledWord").innerText = `Scrambled word: ${scrambledWord}`;
-    document.getElementById("alertMessage").innerText = "";  // Reset message
-    document.getElementById("alertMessage").style.color = ""; // Reset color
+    document.getElementById("alertMessage").innerText = "";  
+    document.getElementById("alertMessage").style.color = ""; 
     attemptsLeft = 2;
 }
 
@@ -243,7 +260,7 @@ function checkPuzzle() {
     if (userInput === currentWord) {
         alertMessage.innerText = "Correct code! Access granted.";
         alertMessage.style.color = "green"; // Success message in green
-        showStory("major_glitch_event");
+        showStory("glitch_event");
     } else {
         attemptsLeft--;
         alertMessage.style.color = "red"; // Make alert text red
@@ -255,51 +272,186 @@ function checkPuzzle() {
     }
 }
 
-function showExplosionScene() {
-    // Clear existing content
-    const storyContainer = document.getElementById("story-text");
-    storyContainer.innerHTML = "";
 
-    // Create a video element
+//boat puzzle
+const puzzles = [
+    {
+        question: "What has to be broken before you can use it?",
+        choices: ["Egg", "Mirror", "Glass", "Lock"],
+        answer: "Egg"
+    },
+    {
+        question: "I speak without a mouth and hear without ears. What am I?",
+        choices: ["Shadow", "Echo", "Wind", "Fire"],
+        answer: "Echo"
+    },
+    {
+        question: "The more of me you take, the more you leave behind. What am I?",
+        choices: ["Memory", "Footsteps", "Shadow", "Breath"],
+        answer: "Footsteps"
+    },
+    {
+        question: "I have keys but open no locks. What am I?",
+        choices: ["Treasure Chest", "Piano", "Computer", "Car"],
+        answer: "Piano"
+    }
+];
+
+let timer;
+let countdown = 20; 
+function showDrowningPuzzle() {
+    document.getElementById("game-container").style.display = "none"; // Hide the game container
+    const puzzleContainer = document.getElementById("puzzle-container");
+    puzzleContainer.style.display = "block"; // Show the puzzle container
+    
+    const randomPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
+
+    let choicesHTML = "";
+    randomPuzzle.choices.forEach(choice => {
+        choicesHTML += `<button class="choice-button" onclick="checkPuzzleAnswer('${choice}', '${randomPuzzle.answer}')">${choice}</button>`;
+    });
+
+    puzzleContainer.innerHTML = `
+        <h2>You're drowning! Solve this puzzle to stay alive:</h2>
+        <p>${randomPuzzle.question}</p>
+        <div id="timer">⏳ Time left: <span id="countdown">${countdown}</span> seconds</div>
+        ${choicesHTML}
+    `;
+
+    timer = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+    const countdownElement = document.getElementById("countdown");
+
+    if (countdown > 0) {
+        countdown--;
+        countdownElement.textContent = countdown;
+    } else {
+        clearInterval(timer);
+        showDrowningEnding(); 
+    }
+}
+
+function checkPuzzleAnswer(selectedAnswer, correctAnswer) {
+    clearInterval(timer); 
+
+    if (selectedAnswer === correctAnswer) {
+        playSound("success.mp3");
+        showSurvivalEnding();
+    } else {
+        playSound("failure.mp3");
+        showDrowningEnding(); 
+    }
+}
+
+function showSurvivalEnding() {
+    document.getElementById("game-container").style.display = "none";
+    const puzzleContainer = document.getElementById("puzzle-container");
+    puzzleContainer.style.display = "block";
+    puzzleContainer.innerHTML = `
+        <h1>You solved the puzzle and survived!</h1>
+        <p>A mysterious force pulls you out of the water...</p>
+        <button onclick="restartGame()">Restart</button>
+    `;
+}
+
+function showDrowningEnding() {
+    document.getElementById("game-container").style.display = "none";
+    const puzzleContainer = document.getElementById("puzzle-container");
+    puzzleContainer.style.display = "block";
+    
+    puzzleContainer.innerHTML = `
+        <h1 class="fade-out">You drowned...</h1>
+        <p>The ocean swallows you whole. Darkness surrounds you.</p>
+        <button onclick="restartGame()">Restart</button>
+    `;
+
+    setTimeout(() => {
+        document.querySelector(".fade-out").style.opacity = "0";
+    }, 1000);
+}
+
+
+function restartGame() {
+    clearInterval(timer);
+    countdown = 10;
+    showStory("start"); // Resets the game to the beginning
+}
+
+function playSound(soundFile) {
+    const audio = new Audio(soundFile);
+    audio.play();
+}
+
+
+
+function showExplosionScene() {
+    // Hide all existing game content
+    document.getElementById("game-container").style.display = "none";
+    document.getElementById("puzzle-container").style.display = "none";
+
+    // Create an explosion video element
     const explosionVideo = document.createElement("video");
-    explosionVideo.src = "images/explosion.mp4"; // Set explosion video path
+    explosionVideo.src = "images/explosion.mp4"; // Path to explosion video
     explosionVideo.autoplay = true;
     explosionVideo.muted = false;
     explosionVideo.controls = false;
-    explosionVideo.id = "explosion-video"; 
+    explosionVideo.id = "explosion-video";
 
+    // Play explosion sound effect
     const explosionSound = new Audio("images/explosion.mp3");
     explosionVideo.onplay = () => {
-        explosionSound.play().catch(error => console.log("Audio play failed:", error)); // Handle autoplay restrictions
+        explosionSound.play().catch(error => console.log("Audio play failed:", error));
     };
 
     // Append video to the body
     document.body.appendChild(explosionVideo);
-    setTimeout(() => {
-        showGameOver(); // Pop up effect triggered before video ends
-    }, explosionVideo.duration * 500); // Show "GAME OVER" 80% into the explosion
 
-    // When video ends, remove it
+    // Ensure "GAME OVER" appears when the explosion ends
     explosionVideo.onended = function () {
         document.body.removeChild(explosionVideo);
+        showGameOver(); // Show "GAME OVER" after video ends
     };
-}
 
+    
+}
 function showGameOver() {
-    const storyContainer = document.getElementById("story-text");
-    storyContainer.innerHTML = `
-        <h1 class="game-over">GAME OVER</h1>
-        <p class="game-over-text">You are dead...</p>
-        <div class="button-container">
-            <button onclick="restart()">Retry</button>
-            <button onclick="exitGame()">Exit</button>
+    // Hide other containers
+    document.getElementById("game-container").style.display = "none";
+    document.getElementById("puzzle-container").style.display = "none";
+
+    // Create a game over overlay container
+    const gameOverScreen = document.createElement("div");
+    gameOverScreen.id = "game-over-screen";
+
+    gameOverScreen.innerHTML = `
+        <div class="game-over-container">
+            <h1 class="game-over">GAME OVER</h1>
+            <p class="game-over-text">You are dead...</p>
+            <div class="button-container">
+                <button onclick="restart()">Retry</button>
+                <button onclick="exitGame()">Exit</button>
+            </div>
         </div>
     `;
+
+    document.body.appendChild(gameOverScreen);
 }
 
 
 function restart() {
-    showStory("bunker"); // Restart from the bunker checkpoint
+    // Remove the game over screen
+    const gameOverScreen = document.getElementById("game-over-screen");
+    if (gameOverScreen) {
+        gameOverScreen.remove();
+    }
+
+    // Show the game container again
+    document.getElementById("game-container").style.display = "block";
+
+    // Restart the game from the beginning
+    showStory("start");
 }
 
 
@@ -310,7 +462,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function showHomeScreen() {
-    document.body.style.backgroundImage = "url('images/home.jpeg')";
+    document.body.style.backgroundImage = "url('images/home.webp')";
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundRepeat = "no-repeat";
@@ -327,7 +479,7 @@ function showHomeScreen() {
                 The sky shifts unnaturally. Shapes blur at the edges of your vision.  
                 You are not alone. Something is watching. Something is... wrong.  
                 <br><br>
-                Every choice you make will reveal a hidden truth—or trap you in the simulation forever.  
+                Every choice you make will reveal a hidden truth or trap you in the simulation forever.  
             </p>
             <button class="start-button" onclick="startGame()">Enter the Illusion</button>
         </div>
@@ -364,7 +516,7 @@ function showEndingScreen(message, image) {
 }
 
 function restartGame() {
-    showHomeScreen(); // Restart the game from the home screen
+    location.reload(); 
 }
 
 function exitGame() {
@@ -396,8 +548,13 @@ function showStory(storyKey) {
         showEndingScreen(storyNode.text, storyNode.image);
         return;
     }
-    if (storyKey === "explosion") {
+    if (storyKey === "explosion" || storyKey === "green_button") {
         showExplosionScene();
+        return;
+    }
+    
+    if (storyKey === "boat") {
+        showDrowningPuzzle();
         return;
     }
     
@@ -430,7 +587,6 @@ function showChoices(choices) {
                 const button = document.createElement("button");
                 button.innerText = choice.text;
                 button.classList.add("choice-button");
-                button.onclick = () => showStory(choice.nextScene);
                 button.style.opacity = "0"; // Start hidden
                 choicesDiv.appendChild(button);
 
@@ -439,8 +595,21 @@ function showChoices(choices) {
                     button.style.opacity = "1";
                     button.style.transition = "opacity 0.5s ease-in-out";
                 }, 100);
+
+                // Play sound on click and navigate
+                button.onclick = () => {
+                    playClickSound(); // Play sound effect
+                    showStory(choice.nextScene); // Navigate to next scene
+                };
             }, index * 300); // Staggered delay between choices
         });
     }, 900); // Delay before choices appear (adjust based on text speed)
 }
+
+// Function to play button click sound
+function playClickSound() {
+    const clickSound = new Audio("images/click.mp3"); // Replace with your sound file path
+    clickSound.play();
+}
+
 
