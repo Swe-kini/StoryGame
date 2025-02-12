@@ -120,10 +120,7 @@ const story = {
         image: "images/bunker.jpeg",
         sound: "/timer-beeping.mp3",
         task: {
-            type: "puzzle", 
-            difficulty: "medium",
-            successNextScene: "glitch_event",
-            failNextScene: "bunker_explosion"
+            type: "puzzle",
         }
     },
     
@@ -169,6 +166,7 @@ const story = {
     },
     vision: {
         text: "You recall a memory of escaping a lab.",
+        image: "images/lab.webp",
         choices: [
             { text: "Search for lab", nextScene: "bunker" },
             { text: "Ignore", nextScene: "ignore" },
@@ -185,10 +183,10 @@ const story = {
             { text: "Reset the Simulation", nextScene: "start" }
         ]
     },
-    control_ending: { text: "You override the system and reshape reality. " ,image: "images/reality.jpeg"},
-    escape_ending: { text: "You enter a portal, waking up in a different world. " ,image: "images/escape.jpeg"},
-    flashback_ending: { text: "You wake up in a lab, realizing you were a test subject. ",image: "images/lab.jpeg" },
-    mystery_ending: { text: "An unknown consequence unfolds... " ,image: "images/mystery.jpeg"}
+    control_ending: { text: "You override the system and reshape reality. " ,image: "images/reality.webp"},
+    escape_ending: { text: "You enter a portal, waking up in a different world. " ,image: "images/escape.web"},
+    flashback_ending: { text: "You wake up in a lab, realizing you were a test subject. " },
+    mystery_ending: { text: "An unknown consequence unfolds... " ,image: "images/mystery.web"}
 };
 
 
@@ -254,23 +252,28 @@ function initializePuzzle() {
 }
 
 function checkPuzzle() {
-    const userInput = document.getElementById('codeInput').value.trim().toUpperCase();
+    const userInput = document.getElementById('codeInput').value.trim().toLowerCase(); // Convert input to lowercase
     const alertMessage = document.getElementById('alertMessage');
+    const puzzleBox = document.getElementById('puzzle-container'); // Corrected the ID
 
-    if (userInput === currentWord) {
-        alertMessage.innerText = "Correct code! Access granted.";
-        alertMessage.style.color = "green"; // Success message in green
-        showStory("glitch_event");
+    if (userInput === currentWord.toLowerCase()) { // Case-insensitive comparison
+        document.getElementById("game-container").style.display = "block";
+        puzzleBox.style.display = "none"; // Hide puzzle
+        showStory("glitch_event"); // Proceed to glitch event
     } else {
         attemptsLeft--;
-        alertMessage.style.color = "red"; // Make alert text red
+        alertMessage.style.color = "red";
+
         if (attemptsLeft > 0) {
             alertMessage.innerText = `Incorrect code! You have ${attemptsLeft} attempt(s) left.`;
         } else {
-            showExplosionScene();
+            showExplosionScene(); // If out of attempts, explosion happens
         }
     }
 }
+
+
+    
 
 
 //boat puzzle
@@ -503,17 +506,26 @@ function startGame() {
 
 function showEndingScreen(message, image) {
     const gameContainer = document.getElementById("game-container");
-    
-    gameContainer.innerHTML = `
-        <div id="ending-screen">
-            <h1>${message}</h1>
-            
-            <button class="ending-button" onclick="restartGame()">Restart Game</button>
-            <button class="ending-button" onclick="exitGame()">Exit</button>
+    if (gameContainer) gameContainer.style.display = "none"; 
+
+    const existingEndingScreen = document.getElementById("ending-screen");
+    if (existingEndingScreen) existingEndingScreen.remove();
+
+    const endingScreen = document.createElement("div");
+    endingScreen.id = "ending-screen";
+    endingScreen.innerHTML = `
+        <h1>${message}</h1>
+      
+        <div class="ending-buttons">
+            <button onclick="restartGame()">Restart Game</button>
+            <button onclick="exitGame()">Exit</button>
         </div>
     `;
-    
+
+    document.body.appendChild(endingScreen);
 }
+
+
 
 function restartGame() {
     location.reload(); 

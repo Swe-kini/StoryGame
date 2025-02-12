@@ -11,9 +11,6 @@ body {
     overflow-y: hidden;
 }
 
-
-
-
 .start-button {
     background: #ff4500;
     color: white;
@@ -272,3 +269,70 @@ button:hover {
     transition: opacity 2s ease-in-out;
 }
 
+
+/* Make buttons take full width on smaller screens */
+@media (max-width: 600px) {
+    #choices {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #choices button {
+        width: 60%; /* Full width minus margins */
+    }
+}
+
+/* Responsive Game Container */
+#game-container {
+    width: 90%;
+    max-width: 600px; /* Prevents it from being too large */
+    padding: 20px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    opacity: 0.8;
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.3);
+    animation: popup 2s ease-in-out;
+    color: rgb(255, 255, 255); 
+}
+
+/* Responsive Ending Screen */
+#ending-screen {
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+@media (max-width: 600px) {
+    #ending-screen {
+        width: 95%; /* Use almost full width */
+    }
+}
+
+/* Responsive Home Container */
+#home-container {
+    width: 80%;
+}
+
+@media (max-width: 600px) {
+    #home-container {
+        width: 95%; /* More space for small screens */
+    }
+}
+
+/* Game Over Container */
+.game-over-container {
+    width: 90%;
+    max-width: 400px;
+}
+
+@media (max-width: 600px) {
+    .game-over-container {
+        width: 95%;
+    }
+}
