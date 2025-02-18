@@ -269,15 +269,19 @@ button:hover {
 }
 
 
-@media (max-width: 600px) {
+
+@media (max-width: 1024px) {
+    #game-container{
+        width: 600px;
+    }
     #choices {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    #choices button {
-        width: 90%; 
+    .choice-button{
+        width: 250px !important;
     }
 
     /* Remove special styling for the last odd child in small screens */
@@ -292,3 +296,28 @@ button:hover {
     }
 }
 
+@media (max-width: 600px) {
+    #game-container{
+        width: 300px;
+    }
+    #choices {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .choice-button{
+        width: 250px !important;
+    }
+
+    /* Remove special styling for the last odd child in small screens */
+    #choices button:nth-child(odd):last-child {
+        grid-column: auto;
+        justify-self: auto;
+        width: 90%; 
+    }
+
+    #ending-screen, #home-container, .game-over-container {
+        width: 95%;
+    }
+}

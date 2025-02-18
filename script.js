@@ -197,10 +197,7 @@ let scrambledWord = "";
 let currentAudio = null;
 
 function playLoopingSound(url) {
-    if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-    }
+    stopAudio(); 
     currentAudio = new Audio(url);
     currentAudio.loop = true;
     currentAudio.play();
@@ -215,20 +212,20 @@ function stopAudio() {
 }
 
 function showPuzzle() {
-    document.getElementById("game-container").style.display = "none"; // Hide main game container
+    document.getElementById("game-container").style.display = "none"; 
     const puzzleContainer = document.getElementById("puzzle-container");
-    puzzleContainer.style.display = "block"; // Show puzzle container
+    puzzleContainer.style.display = "block"; 
     
     puzzleContainer.innerHTML = `
         <h2>Code Breaker Puzzle</h2>
         <p id="scrambledWord"></p> 
         <p>Enter the code to continue:</p>
-        <input type="text" id="codeInput" placeholder="Enter code here" />
+        <input type="text" id="codeInput" placeholder="Enter code here" autocomplete="off"/>
         <button onclick="checkPuzzle()">Submit</button>
         <p id="alertMessage"></p>  
     `;
     
-    initializePuzzle(); // Start the puzzle logic
+    initializePuzzle(); 
 }
 
 function scrambleWord(word) {
@@ -252,14 +249,14 @@ function initializePuzzle() {
 }
 
 function checkPuzzle() {
-    const userInput = document.getElementById('codeInput').value.trim().toLowerCase(); // Convert input to lowercase
+    const userInput = document.getElementById('codeInput').value.trim().toLowerCase(); 
     const alertMessage = document.getElementById('alertMessage');
-    const puzzleBox = document.getElementById('puzzle-container'); // Corrected the ID
+    const puzzleBox = document.getElementById('puzzle-container');
 
-    if (userInput === currentWord.toLowerCase()) { // Case-insensitive comparison
+    if (userInput === currentWord.toLowerCase()) { 
         document.getElementById("game-container").style.display = "block";
-        puzzleBox.style.display = "none"; // Hide puzzle
-        showStory("glitch_event"); // Proceed to glitch event
+        puzzleBox.style.display = "none"; 
+        showStory("glitch_event"); 
     } else {
         attemptsLeft--;
         alertMessage.style.color = "red";
@@ -267,7 +264,7 @@ function checkPuzzle() {
         if (attemptsLeft > 0) {
             alertMessage.innerText = `Incorrect code! You have ${attemptsLeft} attempt(s) left.`;
         } else {
-            showExplosionScene(); // If out of attempts, explosion happens
+            showExplosionScene(); 
         }
     }
 }
@@ -303,9 +300,9 @@ const puzzles = [
 let timer;
 let countdown = 20; 
 function showDrowningPuzzle() {
-    document.getElementById("game-container").style.display = "none"; // Hide the game container
+    document.getElementById("game-container").style.display = "none"; 
     const puzzleContainer = document.getElementById("puzzle-container");
-    puzzleContainer.style.display = "block"; // Show the puzzle container
+    puzzleContainer.style.display = "block"; 
     
     const randomPuzzle = puzzles[Math.floor(Math.random() * puzzles.length)];
 
@@ -379,7 +376,7 @@ function showDrowningEnding() {
 function restartGame() {
     clearInterval(timer);
     countdown = 10;
-    showStory("start"); // Resets the game to the beginning
+    showStory("start"); 
 }
 
 function playSound(soundFile) {
@@ -390,41 +387,41 @@ function playSound(soundFile) {
 
 
 function showExplosionScene() {
-    // Hide all existing game content
+  
     document.getElementById("game-container").style.display = "none";
     document.getElementById("puzzle-container").style.display = "none";
 
-    // Create an explosion video element
+    
     const explosionVideo = document.createElement("video");
-    explosionVideo.src = "images/explosion.mp4"; // Path to explosion video
+    explosionVideo.src = "images/explosion.mp4"; 
     explosionVideo.autoplay = true;
     explosionVideo.muted = false;
     explosionVideo.controls = false;
     explosionVideo.id = "explosion-video";
 
-    // Play explosion sound effect
+   
     const explosionSound = new Audio("images/explosion.mp3");
     explosionVideo.onplay = () => {
         explosionSound.play().catch(error => console.log("Audio play failed:", error));
     };
 
-    // Append video to the body
+   
     document.body.appendChild(explosionVideo);
 
-    // Ensure "GAME OVER" appears when the explosion ends
+   
     explosionVideo.onended = function () {
         document.body.removeChild(explosionVideo);
-        showGameOver(); // Show "GAME OVER" after video ends
+        showGameOver();
     };
 
     
 }
 function showGameOver() {
-    // Hide other containers
+  
     document.getElementById("game-container").style.display = "none";
     document.getElementById("puzzle-container").style.display = "none";
 
-    // Create a game over overlay container
+    
     const gameOverScreen = document.createElement("div");
     gameOverScreen.id = "game-over-screen";
 
@@ -444,16 +441,15 @@ function showGameOver() {
 
 
 function restart() {
-    // Remove the game over screen
+   
     const gameOverScreen = document.getElementById("game-over-screen");
     if (gameOverScreen) {
         gameOverScreen.remove();
     }
 
-    // Show the game container again
     document.getElementById("game-container").style.display = "block";
 
-    // Restart the game from the beginning
+   
     showStory("start");
 }
 
@@ -461,7 +457,7 @@ function restart() {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    showHomeScreen(); // Show the home screen when the page loads
+    showHomeScreen(); 
 });
 
 function showHomeScreen() {
@@ -507,13 +503,13 @@ function showEndingScreen(message) {
     const gameContainer = document.getElementById("game-container");
     if (gameContainer) gameContainer.style.display = "none"; 
 
-    // Remove existing ending screen if it exists
+  
     const existingEndingScreen = document.getElementById("ending-screen");
     if (existingEndingScreen) existingEndingScreen.remove();
 
-    // Create a new ending screen
+   
     const endingScreen = document.createElement("div");
-    endingScreen.id = "ending-screen"; // Ensure it has the correct ID for styling
+    endingScreen.id = "ending-screen"; 
 
     endingScreen.innerHTML = `
         <h1>${message}</h1>
@@ -534,30 +530,28 @@ function restartGame() {
 }
 
 function exitGame() {
-    window.close(); // Close the browser window (may not work on all browsers)
+    window.close();
 }
 
-// Modify showStory function to handle endings
+
 function showStory(storyKey) {
     const storyNode = story[storyKey];
     const storyTextDiv = document.getElementById("story-text");
     const choicesDiv = document.getElementById("choices");
     const storyImage = document.getElementById("story-image");
 
-    // Clear existing content
     storyTextDiv.innerHTML = "";
     choicesDiv.innerHTML = "";
     storyImage.src = storyNode.image || "";
 
-    // Stop previous sound
+   
     stopAudio();
 
-    // Play new sound if available
+   
     if (storyNode.sound) {
         playLoopingSound(storyNode.sound);
     }
 
-    // Check if the scene is an ending
     if (storyKey.endsWith("_ending")) {
         showEndingScreen(storyNode.text);
         return;
@@ -573,7 +567,7 @@ function showStory(storyKey) {
     }
     
 
-    // Show story text
+  
     let i = 0;
     function typeWriter() {
         if (i < storyNode.text.length) {
@@ -581,11 +575,13 @@ function showStory(storyKey) {
             i++;
             setTimeout(typeWriter, 70);
         } else {
-            if (storyNode.task && storyNode.task.type === "puzzle") {
-                showPuzzle(); // Show the puzzle if it's a puzzle task
-            } else {
-                showChoices(storyNode.choices);
-            }
+            setTimeout(() => {
+                if (storyNode.task && storyNode.task.type === "puzzle") {
+                    showPuzzle(); 
+                } else {
+                    showChoices(storyNode.choices);
+                }
+            }, 900);
         }
     }
     typeWriter();
@@ -593,36 +589,36 @@ function showStory(storyKey) {
 
 function showChoices(choices) {
     const choicesDiv = document.getElementById("choices");
-    choicesDiv.innerHTML = ""; // Clear previous choices
+    choicesDiv.innerHTML = ""; 
 
     setTimeout(() => { 
         choices.forEach((choice, index) => {
-            setTimeout(() => { // Stagger choice appearance
+            setTimeout(() => { 
                 const button = document.createElement("button");
                 button.innerText = choice.text;
                 button.classList.add("choice-button");
-                button.style.opacity = "0"; // Start hidden
+                button.style.opacity = "0"; 
                 choicesDiv.appendChild(button);
 
-                // Smooth fade-in effect
+               
                 setTimeout(() => {
                     button.style.opacity = "1";
                     button.style.transition = "opacity 0.5s ease-in-out";
                 }, 100);
 
-                // Play sound on click and navigate
+               
                 button.onclick = () => {
-                    playClickSound(); // Play sound effect
-                    showStory(choice.nextScene); // Navigate to next scene
+                    playClickSound(); 
+                    showStory(choice.nextScene); 
                 };
-            }, index * 300); // Staggered delay between choices
+            }, index * 300); 
         });
-    }, 900); // Delay before choices appear (adjust based on text speed)
+    }, 300); 
 }
 
-// Function to play button click sound
+
 function playClickSound() {
-    const clickSound = new Audio("images/click.mp3"); // Replace with your sound file path
+    const clickSound = new Audio("images/click.mp3"); 
     clickSound.play();
 }
 
